@@ -96,19 +96,63 @@ let isMenuOpen = false;
 
 
 hamburgerButton.addEventListener('click', function(){
+    if(!isMenuOpen){
+        showMenu();
 
 
-if(!isMenuOpen){
+    }
+    else{
+        hideMenu();
 
-showMenu();
+    }
+
+});
+
+const homeButton = document.getElementById('home');
+const servicesButton = document.getElementById('services');
+const aboutButton = document.getElementById('about-us');
+const contactButton = document.getElementById('contact-us');
 
 
-}
-else{
-hideMenu();
+const servicesSection = document.getElementById('services-section');
+const contactSection = document.getElementById('contact-section');
 
 
+homeButton.addEventListener('click', function(){
+    homeSection.scrollIntoView({behavior: "smooth"});
+    console.log("it worked");
+});
 
-}
+servicesButton.addEventListener('click', function(){
+    servicesSection.scrollIntoView({behavior: "smooth"});
+    console.log("it worked");
+});
 
+contactButton.addEventListener('click', function(){
+    contactSection.scrollIntoView({behavior: "smooth"});
+    console.log("it worked");
+});
+
+const homeButton2 = document.getElementById('home2');
+const servicesButton2 = document.getElementById('services2');
+const aboutButton2 = document.getElementById('about-us2');
+const contactButton2 = document.getElementById('contact-us2');
+
+homeButton2.addEventListener('click', function(){
+    hideMenu();
+    homeSection.scrollIntoView({behavior: "smooth"});
+    console.log("it worked");
+    
+});
+
+servicesButton2.addEventListener('click', function(){
+    hideMenu();
+    servicesSection.scrollIntoView({behavior: "smooth"});
+    console.log("it worked");
+});
+
+contactButton2.addEventListener('click', function(){
+    hideMenu();
+    contactSection.scrollIntoView({behavior: "smooth"});
+    console.log("it worked");
 });
