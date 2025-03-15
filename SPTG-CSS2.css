@@ -174,7 +174,19 @@ body{
     color:whitesmoke;
     font-family:'Lucida Handwriting',cursive;
     font-size:50px;
-    animation: SlideDown 1.7s ease-in-out;
+    animation: SlideDown 1.7s ease-in-out, pulsating 2s ease infinite ;
+}
+
+@keyframes pulsating{
+    0%{
+        trnsform:scale(1);
+    }
+    50%{
+        transform: scale(1.1);
+    }
+    100%{
+        transform: scale(1);
+    }
 }
 
 .headings h2{

@@ -1,8 +1,8 @@
 const images = [
-    "https://i.imgur.com/UTUuesG.jpg",
-    "https://imgur.com/0gkRTj8.jpg",
-    "https://i.imgur.com/2aFi1LZ.jpg",
-    "https://i.imgur.com/SjOtOfB.jpg"
+    "S1.jpg",
+    "S2.jpg",
+    "S3.jpg",
+    "S4.png"
 ];
 
 let currentIndex = 0;
