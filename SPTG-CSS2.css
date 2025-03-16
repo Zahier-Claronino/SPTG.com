@@ -4,12 +4,7 @@ body{
     margin:0;
     width:100%;
     height:100vh;
-
-    
-
 }
-
-
     .home {
         position: relative;
         width: 100.4%;
@@ -336,22 +331,17 @@ body{
 
 }
 
-
-.services{
+main{
     width:100%;
     min-height:100vh;
     background-image: url("Services-background.jpg");
     background-position: center;
     background-size:cover;
     background-repeat: no-repeat;
-    position:relative;
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom:3;
+    background-attachment: fixed;
+    position: relative;
 }
-
-.services::before {
+main::before {
     content: "";
     position: absolute;
     top: 0;
@@ -361,16 +351,28 @@ body{
     background: rgba(0, 0, 0, 0.7); /* Adjust opacity (0.5 for darker, you can increase or decrease) */
     z-index: 1; /* Ensure the overlay is above the image but below text content */
 }
+.services{
+    width:100%;
+    min-height:100vh;
+
+    position:relative;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom:3;
+}
+
+
 
 .services h1{
     
     text-align:center;
-    font-size:65px;
+    font-size:50px;
     color:rgb(255, 255, 255);
     position:relative;
     z-index: 2;
     animation:changeColor 8s ease-in-out infinite;
-    font-family:Copperplate, Papyrus, fantasy;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 
     margin-bottom:0;
 }
@@ -401,8 +403,8 @@ body{
     color:white;
     position: relative;
     z-index:2;
-    font-size:35px;
-    margin-top:0;
+    font-size:30px;
+    margin-top:1;
     font-family:'Courier New', monospace;
     margin-bottom:0;
 }
@@ -521,21 +523,22 @@ body{
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;*/
-    background-color:rgba(0, 0, 255, 0.7);
+    background: rgb(27,67,224);
+    background: linear-gradient(90deg, rgba(27,67,224,0.8) 14%, rgba(146,191,232,0.8) 100%, rgba(123,175,78,0.8) 100%);
     display:flex;
     justify-content: center;
     box-shadow: 4px 4px 0px #2c3e50, 8px 8px 0px #1a252f;
 }
 
 
-    .services-information1::before{
+    /*.services-information1::before{
         content: '';
         position: absolute;
         width: 700px;
         height: 320px;
         background: rgba(0, 0, 0, 0.5);  
         z-index: 1; 
-    }
+    }*/
 
 
 #services2-headings{
@@ -562,22 +565,26 @@ body{
 }
 .contact{
     min-height:100vh;
+    position: relative;
+    z-index: 2;
+
 }
 
 .contact-heading{
     display:flex;
     justify-content: center;
     align-items: center;
-    height:220px;
+    
     width:100%;
-    position:relative;     
+    position:relative;  
+    /*height:220px;
     background-image:url("contact-background5.jpg");
     background-position:center;
     background-size:cover;
-    background-repeat:no-repeat;
+    background-repeat:no-repeat;*/
 
 }
-.contact-heading::before{
+/*.contact-heading::before{
     content: '';
     position: absolute;
     top: 0;
@@ -586,7 +593,7 @@ body{
     height: 220px;
     background: rgba(0, 0, 0, 0.7);  
     z-index: 1; 
-}
+}*/
 
 .contact-heading h1{
     color:white;
@@ -616,23 +623,17 @@ body{
 
 .contact-body{
     width:100%;
-    min-height:522.40px;
-    max-height:2000px;
+    height: 100%;
     display:flex;
     justify-content: center;
-    align-items: center;
-    background-color:white;
-
+    align-items: start;
 
 }
 
 .contact-form{
     width:600px;
     max-height:800px;
-    display:flex;
-    background-color:white;
-    
-    
+    display:flex; 
 }
 
 .contact-form img{
@@ -692,14 +693,19 @@ body{
     cursor:pointer;
 }
 
+.container{
+    height:53%;
+    position: absolute;
+    margin-left:-710px;
+    display: flex;
+    align-items: center;
+}
+
 .contact-info{
     width:250px;
     height:350px;
     background-color:gray;
-    position: absolute;
-    margin-left:-710px;
     border-radius: 15px 15px 15px;
-
 }
 
 .phone, .email, .whatsapp{
@@ -722,6 +728,82 @@ body{
     color:white;
     font-size:17px;
 }
+
+.about{
+    position: relative;
+    z-index: 2;
+    min-height:100vh;
+    width: 100%;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.about h1{
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: center;
+    color:white;
+    font-size:50px;
+    
+}
+
+.ourStory-mission{
+    display:flex;
+    width:100%;
+    justify-content: center;
+    
+
+}
+
+.our-story{
+    width:30%;
+    height:500px;
+    background-color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    flex-direction: column;
+}
+
+.our-story h2{
+    color:black;
+    font-size:28px;
+    font-weight: bold;
+    text-decoration: underline;
+    font-family:Copperplate, Papyrus, fantasy ;
+    text-align: center;
+}
+
+.our-story p{
+    font-family: Arial, Helvetica, sans-serif;
+    color:black;
+    font-size: 18px;
+    text-align: center;
+}
+
+.mission{
+    width:30%;
+    height:500px;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+}
+
+.mission h2{
+    color:white;
+    font-size:28px;
+    font-weight: bold;
+    text-decoration: underline;
+    font-family:Copperplate, Papyrus, fantasy ;
+    text-align: center;
+}
+
+.mission p{
+    font-family: Arial, Helvetica, sans-serif;
+    color:white;
+    font-size: 18px;
+    text-align: center;
+}
+
+
 
 
 /*MEDIA QUERIES INVOLVING HEIGHT CHANGES*/
