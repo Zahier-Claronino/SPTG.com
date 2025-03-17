@@ -173,9 +173,15 @@ contactButton2.addEventListener('click', function(){
 
 
 document.querySelector('#contactForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevents default form submission
+    event.preventDefault(); // Prevent default form submission
     
     const formData = new FormData(this);
+    const submitButton = this.querySelector('button[type="submit"]'); // Select the submit button
+    const originalButtonText = submitButton.textContent; // Store original text
+
+    // Show "Sending..." message
+    submitButton.textContent = "Sending...";
+    submitButton.disabled = true; // Disable the button to prevent multiple submissions
 
     fetch("https://formsubmit.co/ajax/zahierclaronino50@gmail.com", {
         method: "POST",
@@ -190,13 +196,24 @@ document.querySelector('#contactForm').addEventListener('submit', function(event
             alert("Oops! Something went wrong. Please try again.");
         }
     })
-    .catch(error => alert("Error: " + error));
+    .catch(error => alert("Error: " + error))
+    .finally(() => {
+        // Restore original button text and enable it again
+        submitButton.textContent = originalButtonText;
+        submitButton.disabled = false;
+    });
 });
 
 document.querySelector('#contactForm2').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevents default form submission
+    event.preventDefault(); // Prevent default form submission
     
     const formData = new FormData(this);
+    const submitButton = this.querySelector('button[type="submit"]'); // Select the submit button
+    const originalButtonText = submitButton.textContent; // Store original text
+
+    // Show "Sending..." message
+    submitButton.textContent = "Sending...";
+    submitButton.disabled = true; // Disable the button to prevent multiple submissions
 
     fetch("https://formsubmit.co/ajax/zahierclaronino50@gmail.com", {
         method: "POST",
@@ -211,5 +228,10 @@ document.querySelector('#contactForm2').addEventListener('submit', function(even
             alert("Oops! Something went wrong. Please try again.");
         }
     })
-    .catch(error => alert("Error: " + error));
+    .catch(error => alert("Error: " + error))
+    .finally(() => {
+        // Restore original button text and enable it again
+        submitButton.textContent = originalButtonText;
+        submitButton.disabled = false;
+    });
 });
