@@ -171,3 +171,45 @@ contactButton2.addEventListener('click', function(){
     contactSection.scrollIntoView({behavior: "smooth"});
 });
 
+
+document.querySelector('#contactForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevents default form submission
+    
+    const formData = new FormData(this);
+
+    fetch("https://formsubmit.co/ajax/zahierclaronino50@gmail.com", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert("Thank you for your message! We'll get back to you soon.");
+            event.target.reset(); // Reset the form after submission
+        } else {
+            alert("Oops! Something went wrong. Please try again.");
+        }
+    })
+    .catch(error => alert("Error: " + error));
+});
+
+document.querySelector('#contactForm2').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevents default form submission
+    
+    const formData = new FormData(this);
+
+    fetch("https://formsubmit.co/ajax/zahierclaronino50@gmail.com", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert("Thank you for your message! We'll get back to you soon.");
+            event.target.reset(); // Reset the form after submission
+        } else {
+            alert("Oops! Something went wrong. Please try again.");
+        }
+    })
+    .catch(error => alert("Error: " + error));
+});
