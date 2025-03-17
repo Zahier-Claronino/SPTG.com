@@ -114,25 +114,36 @@ const servicesButton = document.getElementById('services');
 const aboutButton = document.getElementById('about-us');
 const contactButton = document.getElementById('contact-us');
 
+const getQuote = document.getElementById('get-a-quote');
+
 
 const servicesSection = document.getElementById('services-section');
+const aboutSection = document.getElementById('about-section');
 const contactSection = document.getElementById('contact-section');
+
 
 
 homeButton.addEventListener('click', function(){
     homeSection.scrollIntoView({behavior: "smooth"});
-    console.log("it worked");
 });
 
 servicesButton.addEventListener('click', function(){
     servicesSection.scrollIntoView({behavior: "smooth"});
-    console.log("it worked");
 });
+
+aboutButton.addEventListener('click', function(){
+    aboutSection.scrollIntoView({behavior: "smooth"});
+
+})
 
 contactButton.addEventListener('click', function(){
     contactSection.scrollIntoView({behavior: "smooth"});
-    console.log("it worked");
 });
+
+getQuote.addEventListener('click', function(){
+    contactSection.scrollIntoView({behavior: "smooth"});
+})
+
 
 const homeButton2 = document.getElementById('home2');
 const servicesButton2 = document.getElementById('services2');
@@ -142,18 +153,21 @@ const contactButton2 = document.getElementById('contact-us2');
 homeButton2.addEventListener('click', function(){
     hideMenu();
     homeSection.scrollIntoView({behavior: "smooth"});
-    console.log("it worked");
     
 });
 
 servicesButton2.addEventListener('click', function(){
     hideMenu();
     servicesSection.scrollIntoView({behavior: "smooth"});
-    console.log("it worked");
 });
+
+aboutButton2.addEventListener('click', function(){
+    hideMenu();
+    aboutSection.scrollIntoView({behavior: "smooth"});
+})
 
 contactButton2.addEventListener('click', function(){
     hideMenu();
     contactSection.scrollIntoView({behavior: "smooth"});
-    console.log("it worked");
 });
+
