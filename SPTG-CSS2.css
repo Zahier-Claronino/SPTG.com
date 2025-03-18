@@ -353,7 +353,7 @@ main::before {
 }
 .services{
     width:100%;
-    min-height:100vh;
+    min-height:180vh;
 
     position:relative;
     display:flex;
@@ -518,7 +518,7 @@ main::before {
 
 .services-information1{
     width:700px;
-    height: 320px;
+    border:2px solid white;
     /*background-image:url("https://imgur.com/0gkRTj8.jpg");
     background-position: center;
     background-repeat: no-repeat;
@@ -730,11 +730,16 @@ main::before {
     margin-bottom:0;
 }
 
-#number{
+#number, #email, #num{
     margin-top:0;
     margin-bottom:0;
     color:white;
     font-size:17px;
+    
+}
+
+#email, #num{
+    text-decoration: underline;
 }
 
 .about{
@@ -908,14 +913,18 @@ main::before {
 }
 
 @media only screen and (max-width:960px){
-    .contact-info{
+    .container{
         position:static;
         display:flex;
         flex-direction: column;
         align-items: center;
-        width:600px;
+        
         margin-left: 0px;
         border-radius: 0px 0px 0px;
+    }
+    .contact-info{
+        border-radius: 0px 0px 0px;
+        width:600px;
     }
 
     .contact-form form{
@@ -928,7 +937,19 @@ main::before {
 
     .contact-body{
         flex-direction: column;
+        align-items: center;
 
+    }
+}
+
+@media only screen and (max-width:900px){
+
+    .our-story{
+        width:45%;
+    }
+
+    .mission{
+        width:45%;
     }
 }
 
@@ -1019,6 +1040,20 @@ main::before {
 
 }
 
+@media only screen and (max-width:700px){
+    .ourStory-mission{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .our-story{
+        width:90%;
+    }
+    .mission{
+        width:90%;
+    }
+}
+
 @media only screen and (max-width:670px){
     
     .home{
@@ -1077,9 +1112,12 @@ main::before {
 }
 
 @media only screen and (max-width:601px){
+    .container{
+        width: 100%;
+    }
 
     .contact-info{
-        width:100%;
+        width:80%;
     }
 
     .contact-form{
@@ -1090,7 +1128,7 @@ main::before {
 
     .contact-form form{
         width:80%;
-        border-radius:15px 15px 15px 15px;
+        
     }
 
     .contact-form img{
@@ -1183,6 +1221,10 @@ main::before {
 
 @media only screen and (max-width:446px){
     .contact-form form{
+        width:100%;
+    }
+
+    .contact-info{
         width:100%;
     }
 }
