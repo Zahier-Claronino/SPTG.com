@@ -927,6 +927,21 @@ html, body{
     }
 }
 
+@media only screen and (max-width:940px){
+    .home-body{
+        flex-direction:column;
+        align-items: center;
+    }
+    .intro-paragraph{
+        width:650px;
+        flex-direction: row;
+        gap:40px;
+        align-items:center;
+        height:400px;
+        
+    }
+}
+
 @media only screen and (max-width:900px){
 
     .our-story{
@@ -954,26 +969,12 @@ html, body{
 
 
 @media only screen and (max-width:770px){
-    .home{
-        height:1220px;
-    }
-
-    .home::before{
-        height:1220px
-    }
-    .all-home{
-        height:100px;
-    }
 
     .nav-buttons button{
         font-size:17px;
     }
 
-    .home-body{
-        flex-direction:column;
-        align-items: center;
-        height:1110px;
-    }
+
 
     .headings{
         display:flex;
@@ -981,14 +982,7 @@ html, body{
 
     }
 
-    .intro-paragraph{
-        width:650px;
-        flex-direction: row;
-        gap:40px;
-        align-items:center;
-        height:400px;
-        
-    }
+    
 
     .form{
         height:650px;
@@ -1040,15 +1034,6 @@ html, body{
 }
 
 @media only screen and (max-width:670px){
-    
-    .home{
-        height:1420px;
-    }
-
-
-    .home::before{
-        height:1420px
-    }
     .nav-buttons{
         gap:2px;
     }
@@ -1058,10 +1043,6 @@ html, body{
         width:500px;
         height:600px;
         
-    }
-
-    .home-body{
-        height:1310px;
     }
 
     #background{
@@ -1122,9 +1103,6 @@ html, body{
 }
 
 @media only screen and (max-width:600px){
-    .services2{
-        height:700px;
-    }
     .services-information1{
         flex-direction: column;
         height:500px;
@@ -1243,20 +1221,8 @@ html, body{
 
 @media only screen and (max-width:410px){
 
-    .home{
-        height:1450px;
-    }
-
-    .home::before{
-        height:1450px;
-    }
-
     .intro-paragraph{
         width:300px;
-    }
-
-    .home-body{
-        height:1350px;
     }
 
     .form{
