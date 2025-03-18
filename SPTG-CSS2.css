@@ -145,7 +145,7 @@ html, body{
 
 .home-body{
     display:flex;
-    align-items: center;
+    align-items: start;
     justify-content: center;
     gap:50px;
     min-height: 100vh;
