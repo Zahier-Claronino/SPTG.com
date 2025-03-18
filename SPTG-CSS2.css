@@ -352,8 +352,8 @@ main::before {
     z-index: 1; /* Ensure the overlay is above the image but below text content */
 }
 .services{
-    width:100%;
-    min-height:180vh;
+    width:101%;
+    min-height:100vh;
 
     position:relative;
     display:flex;
@@ -1146,10 +1146,6 @@ main::before {
         width:400px;
     }
 
-    .services-information1::before{
-        height:500px;
-        width:400px;
-    }
 }
 
 
@@ -1191,6 +1187,12 @@ main::before {
 
     .where-when, .location, .return-trip{
         width:450px;
+    }
+}
+
+@media only screen and (max-width:470px){
+    .services-information1{
+        width:90%;
     }
 }
 
@@ -1245,7 +1247,7 @@ main::before {
     }
 
     .services-information1{
-        width:400px;
+        width:100%;
     }
 
     .services-information1::before{
@@ -1394,9 +1396,6 @@ main::before {
         width:280px;
     }
 
-    .services{
-        height:1000px;
-    }
 }
 
 @media only screen and (max-width:310px){
