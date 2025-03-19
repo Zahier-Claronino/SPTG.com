@@ -260,6 +260,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function removePreloader() {
         preloader.classList.add("hidden");
-        document.body.classList.add("loaded"); // Add this to trigger animations
+        document.body.classList.add("loaded"); // This allows animations to start
+        document.querySelectorAll('.animate-slide').forEach(el => {
+            el.style.animationPlayState = "running"; // Start animations manually
+        });
     }
 });

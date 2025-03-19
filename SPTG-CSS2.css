@@ -5,6 +5,17 @@ html, body{
     width:100%;
     min-height:100vh;
 }
+
+body:not(.loaded) * {
+    animation-play-state: paused !important;
+    opacity: 0; /* Ensures elements are hidden before animation starts */
+}
+
+/* Once the page loads, animations play normally */
+body.loaded * {
+    animation-play-state: running !important;
+    opacity: 1;
+}
     .home {
         position: relative;
         width: 100%;
@@ -23,7 +34,7 @@ html, body{
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.65);  
+        background: rgba(0, 0, 0, 0.1);  
         z-index: 1; 
     }
 
