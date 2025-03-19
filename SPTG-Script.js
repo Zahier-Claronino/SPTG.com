@@ -235,3 +235,31 @@ document.querySelector('#contactForm2').addEventListener('submit', function(even
         submitButton.disabled = false;
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const images = document.images;
+    let loadedCount = 0;
+    const preloader = document.getElementById("preloader");
+
+    if (images.length === 0) {
+        removePreloader();
+    } else {
+        for (let i = 0; i < images.length; i++) {
+            const img = new Image();
+            img.src = images[i].src;
+            img.onload = img.onerror = imageLoaded;
+        }
+    }
+
+    function imageLoaded() {
+        loadedCount++;
+        if (loadedCount === images.length) {
+            removePreloader();
+        }
+    }
+
+    function removePreloader() {
+        preloader.classList.add("hidden");
+        document.body.classList.add("loaded"); // Add this to trigger animations
+    }
+});
