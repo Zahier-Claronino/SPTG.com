@@ -512,16 +512,15 @@ html, body{
 
 .services-information1{
     width:700px;
-    border:2px solid white;
     /*background-image:url("https://imgur.com/0gkRTj8.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;*/
     background: rgb(27,67,224);
-    background: linear-gradient(90deg, rgba(27,67,224,0.8) 14%, rgba(146,191,232,0.8) 100%, rgba(123,175,78,0.8) 100%);
+    background: linear-gradient(90deg, rgba(27,67,224,0.3) 14%, rgba(146,191,232,0.3) 100%, rgba(123,175,78,0.3) 100%);
+    box-shadow: 4px 4px 0px #0050a0, 8px 8px 0px #003669;
     display:flex;
     justify-content: center;
-    box-shadow: 4px 4px 0px #2c3e50, 8px 8px 0px #1a252f;
 }
 
 
@@ -642,7 +641,7 @@ html, body{
     width:85%;
     text-align: center;
     background: rgb(0,9,247);
-    background: linear-gradient(90deg, rgba(0,9,247,1) 16%, rgba(109,148,245,1) 100%, rgba(10,97,255,0.7148109243697479) 100%, rgba(146,229,232,1) 100%, rgba(0,0,0,1) 100%);
+    background: linear-gradient(90deg, rgba(0,9,247,0.7) 16%, rgba(109,148,245,0.7) 100%, rgba(10,97,255,0.7) 100%, rgba(146,229,232,0.7) 100%, rgba(0,0,0,1) 100%);
     border-radius: 0 15px 15px 0;
     
 }
@@ -706,7 +705,7 @@ html, body{
     width:255px;
     height:350px;
     background: rgb(0,9,247);
-    background: linear-gradient(90deg, rgba(0,9,247,0.8) 16%, rgba(109,148,245,0.8) 100%, rgba(10,97,255,0.7148109243697479) 100%, rgba(146,229,232,0.8) 100%, rgba(0,0,0,0.8) 100%);
+    background: linear-gradient(90deg, rgba(0,9,247,0.7) 16%, rgba(109,148,245,0.7) 100%, rgba(10,97,255,0.7) 100%, rgba(146,229,232,0.8) 100%, rgba(0,0,0,0.8) 100%);
     border-radius: 15px 15px 15px;
 }
 
@@ -765,13 +764,13 @@ html, body{
 .our-story{
     width:30%;
     height:500px;
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(0, 0, 0, 0.4);
     display: flex;
     flex-direction: column;
 }
 
 .our-story h2{
-    color:black;
+    color:lightblue;
     font-size:28px;
     font-weight: bold;
     text-decoration: underline;
@@ -781,7 +780,7 @@ html, body{
 
 .our-story p{
     font-family: Arial, Helvetica, sans-serif;
-    color:black;
+    color:lightblue;
     font-size: 18px;
     text-align: center;
 }
@@ -791,7 +790,7 @@ html, body{
     height:500px;
     /*background-color: rgba(0, 0, 0, 0.7);*/
     background: rgb(27,67,224);
-    background: linear-gradient(90deg, rgba(27,67,224,0.6) 14%, rgba(146,191,232,0.6) 100%, rgba(123,175,78,0.6) 100%);
+    background: linear-gradient(90deg, rgba(27,67,224,0.3) 14%, rgba(146,191,232,0.3) 100%, rgba(123,175,78,0.3) 100%);
     display: flex;
     flex-direction: column;
 }
