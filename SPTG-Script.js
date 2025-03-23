@@ -172,67 +172,94 @@ contactButton2.addEventListener('click', function(){
 });
 
 
-document.querySelector('#contactForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent default form submission
+document.querySelector("#contactForm").addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevents default form submission
     
-    const formData = new FormData(this);
-    const submitButton = this.querySelector('button[type="submit"]'); // Select the submit button
-    const originalButtonText = submitButton.textContent; // Store original text
+    const form = this;
+    const submitButton = form.querySelector("#submit-btn"); 
+    const originalButtonText = submitButton.innerHTML;
 
-    // Show "Sending..." message
-    submitButton.textContent = "Sending...";
-    submitButton.disabled = true; // Disable the button to prevent multiple submissions
+    // Disable button & show loading text
+    submitButton.disabled = true;
+    submitButton.innerHTML = "Sending...";
+
+    const formData = new FormData(form);
 
     fetch("https://formsubmit.co/ajax/zahierclaronino50@gmail.com", {
         method: "POST",
+        headers: { "Accept": "application/json" },
         body: formData
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP Error ${response.status}`);
+        }
+        return response.json();
+    })
     .then(data => {
+        console.log("Server Response:", data); // Log response for debugging
+
         if (data.success) {
             alert("Thank you for your message! We'll get back to you soon.");
-            event.target.reset(); // Reset the form after submission
+            form.reset(); // Reset the form
         } else {
-            alert("Oops! Something went wrong. Please try again.");
+            throw new Error(data.message || "Unknown error occurred");
         }
     })
-    .catch(error => alert("Error: " + error))
+    .catch(error => {
+        console.error("Error:", error);
+        alert("Something went wrong. Please try again later.");
+    })
     .finally(() => {
-        // Restore original button text and enable it again
-        submitButton.textContent = originalButtonText;
+        // Restore button state after sending
         submitButton.disabled = false;
+        submitButton.innerHTML = originalButtonText;
     });
 });
 
-document.querySelector('#contactForm2').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent default form submission
-    
-    const formData = new FormData(this);
-    const submitButton = this.querySelector('button[type="submit"]'); // Select the submit button
-    const originalButtonText = submitButton.textContent; // Store original text
 
-    // Show "Sending..." message
-    submitButton.textContent = "Sending...";
-    submitButton.disabled = true; // Disable the button to prevent multiple submissions
+document.querySelector("#contactForm2").addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevents default form submission
+    
+    const form = this;
+    const submitButton = form.querySelector("#submit-btn2"); 
+    const originalButtonText = submitButton.innerHTML;
+
+    // Disable button & show loading text
+    submitButton.disabled = true;
+    submitButton.innerHTML = "Sending...";
+
+    const formData = new FormData(form);
 
     fetch("https://formsubmit.co/ajax/zahierclaronino50@gmail.com", {
         method: "POST",
+        headers: { "Accept": "application/json" },
         body: formData
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP Error ${response.status}`);
+        }
+        return response.json();
+    })
     .then(data => {
+        console.log("Server Response:", data); // Log response for debugging
+
         if (data.success) {
             alert("Thank you for your message! We'll get back to you soon.");
-            event.target.reset(); // Reset the form after submission
+            form.reset(); // Reset the form
         } else {
-            alert("Oops! Something went wrong. Please try again.");
+            throw new Error(data.message || "Unknown error occurred");
         }
     })
-    .catch(error => alert("Error: " + error))
+    .catch(error => {
+        console.error("Error:", error);
+        alert("Something went wrong. Please try again later.");
+    })
     .finally(() => {
-        // Restore original button text and enable it again
-        submitButton.textContent = originalButtonText;
+        // Restore button state after sending
         submitButton.disabled = false;
+        submitButton.innerHTML = originalButtonText;
     });
 });
 
