@@ -266,3 +266,94 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+document.querySelector("#contactForm").addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevents default form submission
+    
+    const form = this;
+    const submitButton = form.querySelector("#submit-btn"); 
+    const originalButtonText = submitButton.innerHTML;
+
+    // Disable button & show loading text
+    submitButton.disabled = true;
+    submitButton.innerHTML = "Sending...";
+
+    const formData = new FormData(form);
+
+    fetch("https://formsubmit.co/ajax/zahierclaronino50@gmail.com", {
+        method: "POST",
+        headers: { "Accept": "application/json" },
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP Error ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log("Server Response:", data); // Log response for debugging
+
+        if (data.success) {
+            alert("Thank you for your message! We'll get back to you soon.");
+            form.reset(); // Reset the form
+        } else {
+            throw new Error(data.message || "Unknown error occurred");
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("Something went wrong. Please try again later.");
+    })
+    .finally(() => {
+        // Restore button state after sending
+        submitButton.disabled = false;
+        submitButton.innerHTML = originalButtonText;
+    });
+});
+
+
+document.querySelector("#contactForm2").addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevents default form submission
+    
+    const form = this;
+    const submitButton = form.querySelector("#submit-btn2"); 
+    const originalButtonText = submitButton.innerHTML;
+
+    // Disable button & show loading text
+    submitButton.disabled = true;
+    submitButton.innerHTML = "Sending...";
+
+    const formData = new FormData(form);
+
+    fetch("https://formsubmit.co/ajax/zahierclaronino50@gmail.com", {
+        method: "POST",
+        headers: { "Accept": "application/json" },
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP Error ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log("Server Response:", data); // Log response for debugging
+
+        if (data.success) {
+            alert("Thank you for your message! We'll get back to you soon.");
+            form.reset(); // Reset the form
+        } else {
+            throw new Error(data.message || "Unknown error occurred");
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("Something went wrong. Please try again later.");
+    })
+    .finally(() => {
+        // Restore button state after sending
+        submitButton.disabled = false;
+        submitButton.innerHTML = originalButtonText;
+    });
+});
