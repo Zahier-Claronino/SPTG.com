@@ -220,7 +220,7 @@ body.loaded * {
     justify-content:center;
     text-align:center;
     background-color:rgba(255, 255, 255, 0.6);
-    height:630px;
+    min-height:630px;
     width:400px;
     max-height:750px;
     animation:FadeIn 1.9s ease-in-out;

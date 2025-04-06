@@ -239,30 +239,34 @@ document.querySelector('#contactForm2').addEventListener('submit', function(even
 document.addEventListener("DOMContentLoaded", function () {
     const images = document.images;
     let loadedCount = 0;
+    const totalImages = images.length;
     const preloader = document.getElementById("preloader");
 
-    if (images.length === 0) {
+    if (totalImages === 0) {
         removePreloader();
     } else {
-        for (let i = 0; i < images.length; i++) {
-            const img = new Image();
-            img.src = images[i].src;
-            img.onload = img.onerror = imageLoaded;
+        for (let i = 0; i < totalImages; i++) {
+            if (images[i].complete) {
+                imageLoaded(); // Already loaded (from cache)
+            } else {
+                images[i].addEventListener("load", imageLoaded);
+                images[i].addEventListener("error", imageLoaded);
+            }
         }
     }
 
     function imageLoaded() {
         loadedCount++;
-        if (loadedCount === images.length) {
+        if (loadedCount === totalImages) {
             removePreloader();
         }
     }
 
     function removePreloader() {
         preloader.classList.add("hidden");
-        document.body.classList.add("loaded"); // This allows animations to start
+        document.body.classList.add("loaded"); // Allow animations
         document.querySelectorAll('.animate-slide').forEach(el => {
-            el.style.animationPlayState = "running"; // Start animations manually
+            el.style.animationPlayState = "running";
         });
     }
 });
