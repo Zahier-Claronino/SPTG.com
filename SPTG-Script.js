@@ -284,7 +284,7 @@ document.querySelector("#contactForm").addEventListener("submit", function (even
 
     const formData = new FormData(form);
 
-    fetch("https://formsubmit.co/ajax/zahierclaronino50@gmail.com", {
+    fetch("https://formsubmit.co/ajax/sptgtransport@gmail.com", {
         method: "POST",
         headers: { "Accept": "application/json" },
         body: formData
@@ -330,7 +330,7 @@ document.querySelector("#contactForm2").addEventListener("submit", function (eve
 
     const formData = new FormData(form);
 
-    fetch("https://formsubmit.co/ajax/zahierclaronino50@gmail.com", {
+    fetch("https://formsubmit.co/ajax/sptgtransport@gmail.com", {
         method: "POST",
         headers: { "Accept": "application/json" },
         body: formData
