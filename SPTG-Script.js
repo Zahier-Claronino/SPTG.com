@@ -174,7 +174,7 @@ contactButton2.addEventListener('click', function(){
 
 
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("load", function () {
     const images = document.images;
     let loadedCount = 0;
     const totalImages = images.length;
