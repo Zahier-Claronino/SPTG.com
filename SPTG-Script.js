@@ -174,40 +174,23 @@ contactButton2.addEventListener('click', function(){
 
 
 
-document.addEventListener("load", function () {
-    const images = document.images;
-    let loadedCount = 0;
-    const totalImages = images.length;
+window.addEventListener("load", function () {
     const preloader = document.getElementById("preloader");
 
-    if (totalImages === 0) {
-        removePreloader();
-    } else {
-        for (let i = 0; i < totalImages; i++) {
-            if (images[i].complete) {
-                imageLoaded(); // Already loaded (from cache)
-            } else {
-                images[i].addEventListener("load", imageLoaded);
-                images[i].addEventListener("error", imageLoaded);
-            }
-        }
-    }
-
-    function imageLoaded() {
-        loadedCount++;
-        if (loadedCount === totalImages) {
-            removePreloader();
-        }
-    }
-
-    function removePreloader() {
+    // Safely remove preloader once everything is loaded
+    if (preloader) {
         preloader.classList.add("hidden");
-        document.body.classList.add("loaded"); // Allow animations
-        document.querySelectorAll('.animate-slide').forEach(el => {
-            el.style.animationPlayState = "running";
-        });
     }
+
+    // Re-enable scroll and show the page content
+    document.body.classList.add("loaded");
+
+    // Trigger any animations that were paused
+    document.querySelectorAll('.animate-slide').forEach(el => {
+        el.style.animationPlayState = "running";
+    });
 });
+
 
 document.querySelector("#contactForm").addEventListener("submit", function (event) {
     event.preventDefault(); // Prevents default form submission
