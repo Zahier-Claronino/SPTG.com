@@ -172,69 +172,6 @@ contactButton2.addEventListener('click', function(){
 });
 
 
-document.querySelector('#contactForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent default form submission
-    
-    const formData = new FormData(this);
-    const submitButton = this.querySelector('button[type="submit"]'); // Select the submit button
-    const originalButtonText = submitButton.textContent; // Store original text
-
-    // Show "Sending..." message
-    submitButton.textContent = "Sending...";
-    submitButton.disabled = true; // Disable the button to prevent multiple submissions
-
-    fetch("https://formsubmit.co/ajax/zahierclaronino50@gmail.com", {
-        method: "POST",
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert("Thank you for your message! We'll get back to you soon.");
-            event.target.reset(); // Reset the form after submission
-        } else {
-            alert("Oops! Something went wrong. Please try again.");
-        }
-    })
-    .catch(error => alert("Error: " + error))
-    .finally(() => {
-        // Restore original button text and enable it again
-        submitButton.textContent = originalButtonText;
-        submitButton.disabled = false;
-    });
-});
-
-document.querySelector('#contactForm2').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent default form submission
-    
-    const formData = new FormData(this);
-    const submitButton = this.querySelector('button[type="submit"]'); // Select the submit button
-    const originalButtonText = submitButton.textContent; // Store original text
-
-    // Show "Sending..." message
-    submitButton.textContent = "Sending...";
-    submitButton.disabled = true; // Disable the button to prevent multiple submissions
-
-    fetch("https://formsubmit.co/ajax/zahierclaronino50@gmail.com", {
-        method: "POST",
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert("Thank you for your message! We'll get back to you soon.");
-            event.target.reset(); // Reset the form after submission
-        } else {
-            alert("Oops! Something went wrong. Please try again.");
-        }
-    })
-    .catch(error => alert("Error: " + error))
-    .finally(() => {
-        // Restore original button text and enable it again
-        submitButton.textContent = originalButtonText;
-        submitButton.disabled = false;
-    });
-});
 
 document.addEventListener("DOMContentLoaded", function () {
     const images = document.images;
