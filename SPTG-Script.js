@@ -27,8 +27,8 @@ function changeImage() {
     }, 500);
 }
 
-// Change image every 3 seconds
-setInterval(changeImage, 4000);
+// Change image every 6 seconds
+setInterval(changeImage, 5000);
 
 
 const menu = document.getElementById('menu');
@@ -176,20 +176,39 @@ contactButton2.addEventListener('click', function(){
 
 window.addEventListener("load", function () {
     const preloader = document.getElementById("preloader");
+    let loadedCount = 0;
 
-    // Safely remove preloader once everything is loaded
-    if (preloader) {
-        preloader.classList.add("hidden");
+    const preloadImages = images.map((src) => {
+        const img = new Image();
+        img.src = src;
+
+        // Handle cached images
+        if (img.complete) {
+            loadedCount++;
+        } else {
+            img.onload = img.onerror = () => {
+                loadedCount++;
+                if (loadedCount === images.length) allImagesLoaded();
+            };
+        }
+
+        return img;
+    });
+
+    // If everything was already cached
+    if (loadedCount === images.length) {
+        allImagesLoaded();
     }
 
-    // Re-enable scroll and show the page content
-    document.body.classList.add("loaded");
+    function allImagesLoaded() {
+        // Hide preloader if you have one
+        if (preloader) preloader.classList.add("hidden");
 
-    // Trigger any animations that were paused
-    document.querySelectorAll('.animate-slide').forEach(el => {
-        el.style.animationPlayState = "running";
-    });
+        // Reveal home section after preloading
+        document.body.classList.add("loaded");
+    }
 });
+
 
 
 document.querySelector("#contactForm").addEventListener("submit", function (event) {
