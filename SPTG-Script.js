@@ -1,8 +1,8 @@
 const images = [
-    "S1.jpg",
-    "S2.jpg",
-    "S3.jpg",
-    "S4.png",
+    "B1.jpg",
+    "B2.jpg",
+    "B3.jpg",
+    "B4.jpg",
     "home-background1.jpg"
 ];
 
