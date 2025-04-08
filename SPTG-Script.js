@@ -3,7 +3,6 @@ const images = [
     "B2.jpg",
     "B3.jpg",
     "B4.jpg",
-    "S4.png",
     "home-background1.jpg"
 ];
 
