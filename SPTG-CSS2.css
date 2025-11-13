@@ -239,7 +239,7 @@ body.loaded .home {
     flex-direction: column;
     justify-content:center;
     text-align:center;
-    background-color:rgba(255, 255, 255, 0.4);
+    background-color:rgba(255, 255, 255, 0.8);
     min-height:630px;
     width:400px;
     max-height:750px;
@@ -250,6 +250,8 @@ body.loaded .home {
 
 .form input {
     color: black;
+    border:none;
+
 }
 
 @keyframes FadeIn{
@@ -705,7 +707,8 @@ body.loaded .home {
 
 .form form input::placeholder, .form form textarea::placeholder, .contact-form form input::placeholder, .contact-form form textarea::placeholder{
     font-size:16px;
-    color:black;
+    color:darkslategray;
+    text-decoration: none;
 }
 
 
@@ -717,8 +720,8 @@ body.loaded .home {
     font-size:15px;
     font-weight: bold;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: rgb(27,67,224);
-    background: linear-gradient(90deg, rgba(27,67,224,1) 14%, rgba(146,191,232,1) 100%, rgba(123,175,78,1) 100%);
+    background: rgba(27, 66, 224, 0.1);
+    background: linear-gradient(90deg, rgba(27, 66, 224, 0.1) 14%, rgba(146, 190, 232, 0.1) 100%, rgba(123, 175, 78, 0.1) 100%);
     color:white;
     transition:0.3s ease;
     position:relative;
@@ -802,9 +805,11 @@ body.loaded .home {
 .our-story{
     width:30%;
     height:500px;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.25);
     display: flex;
     flex-direction: column;
+    border-radius: 20px;
+    justify-content: center;
 }
 
 .our-story h2{
@@ -828,9 +833,11 @@ body.loaded .home {
     height:500px;
     /*background-color: rgba(0, 0, 0, 0.7);*/
     background: rgb(27,67,224);
-    background: linear-gradient(90deg, rgba(27,67,224,0.3) 14%, rgba(146,191,232,0.3) 100%, rgba(123,175,78,0.3) 100%);
+    background: linear-gradient(90deg, rgba(27,67,224,0.2) 14%, rgba(146,191,232,0.2) 100%, rgba(123,175,78,0.2) 100%);
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    border-radius: 20px;
 }
 
 .mission h2{
