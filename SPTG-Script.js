@@ -9,6 +9,9 @@ const images = [
 let currentIndex = 0;
 const homeSection = document.querySelector(".home");
 const overlay = document.querySelector(".overlay");
+// Track image preload state at module scope so the fallback can inspect it
+let _preloadLoadedCount = 0;
+let _preloadFinished = false;
 
 function changeImage() {
     // Fade to black
@@ -175,7 +178,8 @@ contactButton2.addEventListener('click', function(){
 
 window.addEventListener("load", function () {
     const preloader = document.getElementById("preloader");
-    let loadedCount = 0;
+    // use module-scoped counters so other code (fallback) can see progress
+    _preloadLoadedCount = 0;
 
     const preloadImages = images.map((src) => {
         const img = new Image();
@@ -183,11 +187,11 @@ window.addEventListener("load", function () {
 
         // Handle cached images
         if (img.complete) {
-            loadedCount++;
+            _preloadLoadedCount++;
         } else {
             img.onload = img.onerror = () => {
-                loadedCount++;
-                if (loadedCount === images.length) allImagesLoaded();
+                _preloadLoadedCount++;
+                if (_preloadLoadedCount === images.length) allImagesLoaded();
             };
         }
 
@@ -195,12 +199,13 @@ window.addEventListener("load", function () {
     });
 
     // If everything was already cached
-    if (loadedCount === images.length) {
+    if (_preloadLoadedCount === images.length) {
         allImagesLoaded();
     }
 
     function allImagesLoaded() {
         // Hide preloader if you have one
+        _preloadFinished = true;
         if (preloader) preloader.classList.add("hidden");
 
         // Reveal home section after preloading
@@ -221,82 +226,121 @@ document.querySelector("#contactForm").addEventListener("submit", function (even
     submitButton.disabled = true;
     submitButton.innerHTML = "Sending...";
 
-    const formData = new FormData(form);
+    // const formData = new FormData(form);
 
-    fetch("https://formsubmit.co/ajax/sptgtransport@gmail.com", {
-        method: "POST",
-        headers: { "Accept": "application/json" },
-        body: formData
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP Error ${response.status}`);
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log("Server Response:", data); // Log response for debugging
+    // fetch("https://formsubmit.co/ajax/zahierclaronino50@gmail.com", {
+    //     method: "POST",
+    //     headers: { "Accept": "application/json" },
+    //     body: formData
+    // })
+    // .then(response => {
+    //     if (!response.ok) {
+    //         throw new Error(`HTTP Error ${response.status}`);
+    //     }
+    //     return response.json();
+    // })
+    // .then(data => {
+    //     console.log("Server Response:", data); // Log response for debugging
 
-        if (data.success) {
-            alert("Thank you for your message! We'll get back to you soon.");
-            form.reset(); // Reset the form
-        } else {
-            throw new Error(data.message || "Unknown error occurred");
-        }
-    })
-    .catch(error => {
-        console.error("Error:", error);
-        alert("Something went wrong. Please try again later.");
-    })
-    .finally(() => {
-        // Restore button state after sending
-        submitButton.disabled = false;
-        submitButton.innerHTML = originalButtonText;
-    });
+    //     if (data.success) {
+    //         alert("Thank you for your message! We'll get back to you soon.");
+    //         form.reset(); // Reset the form
+    //     } else {
+    //         throw new Error(data.message || "Unknown error occurred");
+    //     }
+    // })
+    // .catch(error => {
+    //     console.error("Error:", error);
+    //     alert("Something went wrong. Please try again later.");
+    // })
+    // .finally(() => {
+    //     // Restore button state after sending
+    //     submitButton.disabled = false;
+    //     submitButton.innerHTML = originalButtonText;
+    // });
 });
 
-
-document.querySelector("#contactForm2").addEventListener("submit", function (event) {
-    event.preventDefault(); // Prevents default form submission
-    
-    const form = this;
-    const submitButton = form.querySelector("#submit-btn2"); 
-    const originalButtonText = submitButton.innerHTML;
-
-    // Disable button & show loading text
-    submitButton.disabled = true;
-    submitButton.innerHTML = "Sending...";
-
-    const formData = new FormData(form);
-
-    fetch("https://formsubmit.co/ajax/sptgtransport@gmail.com", {
-        method: "POST",
-        headers: { "Accept": "application/json" },
-        body: formData
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP Error ${response.status}`);
+// Safety fallback: if the preloader is still visible after 15s, hide it.
+// We inspect the preload counters so we avoid hiding too early when images
+// are still actively loading; this reduces the risk of the preloader
+// disappearing before critical assets finish.
+setTimeout(() => {
+    try {
+        const preloader = document.getElementById('preloader');
+        if (preloader && !preloader.classList.contains('hidden')) {
+            console.warn(`Preloader fallback: forced hide after 15s — loaded ${_preloadLoadedCount}/${images.length}`);
+            preloader.classList.add('hidden');
+            document.body.classList.add('loaded');
         }
-        return response.json();
-    })
-    .then(data => {
-        console.log("Server Response:", data); // Log response for debugging
+    } catch (e) {
+        console.error('Preloader fallback error:', e);
+    }
+}, 15000);
 
-        if (data.success) {
-            alert("Thank you for your message! We'll get back to you soon.");
-            form.reset(); // Reset the form
-        } else {
-            throw new Error(data.message || "Unknown error occurred");
+
+// Contact form 2 handler removed — forms submit via normal HTML POST now.
+
+// Add AJAX-enhanced submit handlers for both forms so the button shows
+// "Sending..." and the user gets immediate success/failure feedback.
+function attachFormHandler(formSelector, submitButtonSelector) {
+    const form = document.querySelector(formSelector);
+    if (!form) return;
+
+    form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const submitButton = form.querySelector(submitButtonSelector) || form.querySelector('button[type="submit"]');
+        const originalText = submitButton ? submitButton.innerHTML : 'Submit';
+        if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.innerHTML = 'Sending...';
         }
-    })
-    .catch(error => {
-        console.error("Error:", error);
-        alert("Something went wrong. Please try again later.");
-    })
-    .finally(() => {
-        // Restore button state after sending
-        submitButton.disabled = false;
-        submitButton.innerHTML = originalButtonText;
+
+        const formData = new FormData(form);
+
+        try {
+            const response = await fetch(form.action, {
+                method: (form.method || 'POST').toUpperCase(),
+                headers: { 'Accept': 'application/json' },
+                body: formData
+            });
+
+            if (response.ok) {
+                // Try to parse JSON for more detailed messages, but don't fail if not JSON
+                let body = null;
+                try { body = await response.json(); } catch (err) { /* ignore */ }
+
+                // Success feedback
+                alert('Thank you — your message was sent successfully.');
+                form.reset();
+            } else {
+                // Non-2xx response
+                let text = '';
+                try { text = await response.text(); } catch (e) { /* ignore */ }
+                console.error('Form submit error', response.status, text);
+                alert('Could not send your message. Please try again later.');
+            }
+        } catch (err) {
+            console.error('Fetch error submitting form:', err);
+            const proceed = confirm('Sending failed (network/CORS). Submit the form the normal way instead?');
+            if (proceed) {
+                // Submit normally (will navigate away). Use native submit to bypass this handler.
+                form.removeEventListener('submit', arguments.callee);
+                form.submit();
+                return; // native submit will navigate
+            } else {
+                alert('Your message was not sent. Please try again later or use our contact phone/email.');
+            }
+        } finally {
+            if (submitButton) {
+                submitButton.disabled = false;
+                submitButton.innerHTML = originalText;
+            }
+        }
     });
-});
+}
+
+// Attach handlers to both forms
+attachFormHandler('#contactForm', '#submit-btn');
+attachFormHandler('#contactForm2', '#submit-btn2');
+
