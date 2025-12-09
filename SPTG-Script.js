@@ -36,8 +36,6 @@ setInterval(changeImage, 5000);
 const menu = document.getElementById('menu');
 
 menu.style.opacity = '0';
-// ensure the hidden menu does not block pointer events
-menu.style.pointerEvents = 'none';
 
 const hamburgerButton = document.getElementsByClassName('hamburger-button')[0];
 const line1 = document.getElementById('line-1');
@@ -61,7 +59,6 @@ function showMenu(){
     line3.style.transform = 'rotate(-45deg)'; 
     menu.style.zIndex = "5";
     menu.style.opacity = '1';
-    menu.style.pointerEvents = 'auto';
     menu.style.animation = 'none';
 
 
@@ -91,7 +88,6 @@ function hideMenu(){
     setTimeout(function(){
     menu.style.opacity = '0';
     menu.style.zIndex = "1";
-    menu.style.pointerEvents = 'none';
     isMenuOpen = false;
     }, 250);
 };
@@ -147,13 +143,6 @@ contactButton.addEventListener('click', function(){
     contactSection.scrollIntoView({behavior: "smooth"});
 });
 
-// Reviews nav buttons
-const reviewsButton = document.getElementById('reviews');
-const reviewsButton2 = document.getElementById('reviews2');
-const reviewsSection = document.getElementById('reviews-section');
-if(reviewsButton) reviewsButton.addEventListener('click', function(){ if(reviewsSection) reviewsSection.scrollIntoView({behavior: 'smooth'}); });
-
-
 getQuote.addEventListener('click', function(){
     contactSection.scrollIntoView({behavior: "smooth"});
 })
@@ -184,8 +173,6 @@ contactButton2.addEventListener('click', function(){
     hideMenu();
     contactSection.scrollIntoView({behavior: "smooth"});
 });
-// wire off-canvas reviews button
-if(reviewsButton2) reviewsButton2.addEventListener('click', function(){ hideMenu(); if(reviewsSection) reviewsSection.scrollIntoView({behavior: 'smooth'}); });
 
 
 
@@ -356,136 +343,4 @@ function attachFormHandler(formSelector, submitButtonSelector) {
 // Attach handlers to both forms
 attachFormHandler('#contactForm', '#submit-btn');
 attachFormHandler('#contactForm2', '#submit-btn2');
-
-/* -------------------- Reviews module (localStorage) -------------------- */
-(function(){
-    const REVIEWS_KEY = 'sptg_reviews_v1';
-    function _getVisitorId(){
-        try{
-            let id = localStorage.getItem('sptg_visitor_id');
-            if(!id){ id = 'v_'+Math.random().toString(36).slice(2,9)+Date.now().toString(36).slice(-4); localStorage.setItem('sptg_visitor_id', id); }
-            return id;
-        }catch(e){ return null; }
-    }
-    function _isAdmin(){ return sessionStorage.getItem('sptg_is_admin') === '1'; }
-    function _requireAdminSignIn(){
-        const stored = localStorage.getItem('sptg_admin_pass');
-        if(!stored){ const set = prompt('Create admin passphrase (stored locally in browser)'); if(!set) return false; localStorage.setItem('sptg_admin_pass', set); sessionStorage.setItem('sptg_is_admin','1'); alert('Admin passphrase saved; admin enabled for this session'); return true; }
-        const attempt = prompt('Enter admin passphrase'); if(!attempt) return false; if(attempt === stored){ sessionStorage.setItem('sptg_is_admin','1'); alert('Admin enabled'); return true; } alert('Incorrect passphrase'); return false;
-    }
-
-    function loadReviews(){ try{ const raw = localStorage.getItem(REVIEWS_KEY); return raw?JSON.parse(raw):[] }catch(e){ return [] } }
-    function saveReviews(list){ try{ localStorage.setItem(REVIEWS_KEY, JSON.stringify(list)); }catch(e){ console.error(e); } }
-
-    function getAvatarElement(name){
-        const initials = (name||'').split(' ').filter(Boolean).slice(0,2).map(s=>s[0].toUpperCase()).join('') || '?';
-        let hash = 0; for(let i=0;i<name.length;i++) hash = name.charCodeAt(i) + ((hash<<5)-hash);
-        const colors = ['#ef4444','#f97316','#f59e0b','#facc15','#10b981','#06b6d4','#3b82f6','#8b5cf6'];
-        const color = colors[Math.abs(hash) % colors.length];
-        const el = document.createElement('div'); el.className = 'review-avatar'; el.style.background = color; el.innerText = initials;
-        return el;
-    }
-
-    function renderReviews(){
-        const container = document.getElementById('reviews-container'); if(!container) return;
-        const reviews = loadReviews().slice().reverse();
-        container.innerHTML = '';
-        if(reviews.length === 0){ container.innerHTML = '<div class="reviews-empty">No reviews yet — be the first to leave feedback!</div>'; return; }
-        const visitorId = _getVisitorId(); const admin = _isAdmin();
-        reviews.forEach(r => {
-            const card = document.createElement('div'); card.className = 'review-card';
-            const header = document.createElement('div'); header.className = 'review-meta';
-            const left = document.createElement('div'); left.className = 'left';
-            left.appendChild(getAvatarElement(r.name||'Anonymous'));
-            const nameWrap = document.createElement('div'); nameWrap.innerHTML = '<div class="review-name">'+escapeHtml(r.name||'Anonymous')+'</div><div class="review-timestamp">'+(new Date(r.ts||0).toLocaleString())+'</div>';
-            left.appendChild(nameWrap);
-            const right = document.createElement('div'); right.innerHTML = '<div class="card-stars">'+('★'.repeat(r.rating||5)) + ('☆'.repeat(5-(r.rating||5))) +'</div>';
-            header.appendChild(left); header.appendChild(right);
-            card.appendChild(header);
-            const text = document.createElement('div'); text.className = 'review-text'; text.innerText = r.message||''; card.appendChild(text);
-            const isOwner = r.ownerId && visitorId && r.ownerId === visitorId;
-            if(isOwner || admin){
-                const del = document.createElement('button'); del.className = 'review-delete'; del.title = 'Delete review'; del.innerText = '🗑';
-                del.addEventListener('click', function(ev){ ev.stopPropagation(); if(!confirm('Delete this review?')) return; deleteReviewByTs(r.ts); });
-                card.appendChild(del);
-            }
-            container.appendChild(card);
-        });
-    }
-
-    function deleteReviewByTs(ts){ const list = loadReviews(); const idx = list.findIndex(r => String(r.ts) === String(ts)); if(idx === -1){ alert('Review not found'); return; } list.splice(idx,1); saveReviews(list); renderReviews(); }
-
-    // Escape helper
-    function escapeHtml(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-
-    // Modal controls
-    const reviewModal = document.getElementById('review-modal'); const reviewBackdrop = document.getElementById('review-backdrop'); const reviewClose = document.getElementById('review-modal-close'); const writeBtn = document.getElementById('write-review-btn'); const mobileReviewBtn = document.getElementById('mobile-review-btn'); const reviewCancel = document.getElementById('review-cancel');
-    function openReviewModal(){ if(!reviewModal) return; reviewModal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; const first = document.getElementById('reviewerName'); if(first) first.focus(); }
-    function closeReviewModal(){ if(!reviewModal) return; reviewModal.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
-    if(writeBtn) writeBtn.addEventListener('click', openReviewModal);
-    if(mobileReviewBtn) mobileReviewBtn.addEventListener('click', openReviewModal);
-    if(reviewClose) reviewClose.addEventListener('click', closeReviewModal);
-    if(reviewBackdrop) reviewBackdrop.addEventListener('click', closeReviewModal);
-    if(reviewCancel) reviewCancel.addEventListener('click', closeReviewModal);
-
-    // Handle review submission
-    const reviewForm = document.getElementById('reviewForm');
-    if(reviewForm){
-        reviewForm.addEventListener('submit', function(e){
-            e.preventDefault();
-            const name = (this.querySelector('#reviewerName')||{}).value || 'Anonymous';
-            const rating = parseInt((this.querySelector('#reviewRating')||{}).value || '5',10);
-            const message = (this.querySelector('#reviewMessage')||{}).value || '';
-            const ts = Date.now();
-            const ownerId = _getVisitorId();
-            const list = loadReviews();
-            list.push({ name, rating, message, ts: ts, ownerId: ownerId });
-            saveReviews(list);
-            renderReviews();
-            alert('Thanks — your review was posted!');
-            this.reset();
-            closeReviewModal();
-        });
-    }
-
-    // Modal star interaction: build star buttons that sync with hidden select
-    function initModalStars(){
-        const starContainer = document.getElementById('modal-stars');
-        const select = document.getElementById('reviewRating');
-        if(!starContainer || !select) return;
-        starContainer.innerHTML = '';
-        for(let i=1;i<=5;i++){
-            const s = document.createElement('span'); s.className = 'modal-star'; s.innerText = '★'; s.dataset.value = String(6 - i);
-            s.addEventListener('click', function(){
-                const idx = Array.from(starContainer.children).indexOf(this);
-                const rating = 5 - idx;
-                select.value = String(rating);
-                updateStarsUI(starContainer, rating);
-            });
-            starContainer.appendChild(s);
-        }
-        updateStarsUI(starContainer, parseInt(select.value||'5',10));
-    }
-    function updateStarsUI(container, rating){
-        const stars = Array.from(container.children);
-        stars.forEach((s, idx)=>{
-            const starRating = 5 - idx;
-            if(starRating <= rating) s.classList.add('active'); else s.classList.remove('active');
-        });
-    }
-
-    // initialize modal stars on DOM ready and before opening
-    document.addEventListener('DOMContentLoaded', initModalStars);
-    const originalOpen = openReviewModal;
-    function openReviewModalWrapped(){ initModalStars(); originalOpen(); }
-    if(writeBtn){ writeBtn.removeEventListener('click', openReviewModal); writeBtn.addEventListener('click', openReviewModalWrapped); }
-    if(mobileReviewBtn){ mobileReviewBtn.removeEventListener('click', openReviewModal); mobileReviewBtn.addEventListener('click', openReviewModalWrapped); }
-
-    // Admin button
-    const reviewsAdminBtn = document.getElementById('reviews-admin-btn'); if(reviewsAdminBtn){ reviewsAdminBtn.addEventListener('click', function(){ if(_isAdmin()){ sessionStorage.removeItem('sptg_is_admin'); alert('Admin disabled'); renderReviews(); return; } const ok = _requireAdminSignIn(); if(ok) renderReviews(); }); }
-
-    // initial render on DOM ready
-    if(document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', renderReviews); } else { renderReviews(); }
-
-})();
 

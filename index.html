@@ -35,7 +35,6 @@
                 <button type="button" id="services2">Services</button>
                 <button type="button" id="about-us2">About Us</button>
                 <button type="button" id="contact-us2">Contact Us</button>
-                <button type="button" id="reviews2">Reviews</button>
             </div>
         </nav>
         <div class="all-home">
@@ -49,7 +48,6 @@
                     <button type="button" id="services">Services</button>
                     <button type="button" id="about-us">About Us</button>
                     <button type="button" id="contact-us">Contact Us</button>
-                    <button type="button" id="reviews">Reviews</button>
                 </div>
 
                 <button class="hamburger-button" id="hamburger-button">
@@ -248,60 +246,7 @@
                 
             </div>
         </section>
-    <!-- Reviews Section -->
-    <section class="reviews" id="reviews-section">
-        <div class="reviews-inner">
-            <header class="reviews-header">
-                <div>
-                    <h1>Customer Reviews</h1>
-                    <p class="reviews-sub">Real feedback from our passengers — share your experience.</p>
-                </div>
-                <div class="reviews-actions">
-                    <button id="write-review-btn" class="write-review-btn">Write a Review</button>
-                    <button id="reviews-admin-btn" class="reviews-admin-btn" title="Owner only">Owner</button>
-                </div>
-            </header>
-
-            <div id="reviews-container" class="reviews-container" aria-live="polite">
-                <!-- review cards injected here -->
-            </div>
-        </div>
     </section>
-
-    <!-- Mobile floating review button -->
-    <button id="mobile-review-btn" class="mobile-review-btn" aria-label="Write a review">✍️</button>
-
-    <!-- Review Modal -->
-    <div id="review-modal" class="review-modal" aria-hidden="true">
-        <div class="review-modal-backdrop" id="review-backdrop"></div>
-        <div class="review-modal-panel" role="dialog" aria-modal="true" aria-labelledby="review-modal-title">
-            <button class="modal-close" id="review-modal-close" aria-label="Close">×</button>
-            <h2 id="review-modal-title">Write a Review</h2>
-            <form id="reviewForm">
-                <label for="reviewerName">Name</label>
-                <input id="reviewerName" name="name" type="text" placeholder="Your name">
-
-                <label for="reviewRating">Rating</label>
-                <select id="reviewRating" name="rating" style="display:none">
-                    <option value="5">5</option>
-                    <option value="4">4</option>
-                    <option value="3">3</option>
-                    <option value="2">2</option>
-                    <option value="1">1</option>
-                </select>
-                <div id="modal-stars" class="modal-stars" aria-hidden="false"></div>
-
-                <label for="reviewMessage">Message</label>
-                <textarea id="reviewMessage" name="message" rows="4" placeholder="Tell us about your experience"></textarea>
-
-                <div class="modal-actions">
-                    <button type="submit" class="btn primary">Submit Review</button>
-                    <button type="button" class="btn" id="review-cancel">Cancel</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
     <footer>
         <p>&copy; 2025 SPTG.<br> All rights reserved.</p>
     </footer>

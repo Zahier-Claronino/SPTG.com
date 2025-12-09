@@ -55,8 +55,6 @@ body.loaded .home {
     background: rgba(0, 0, 0, 0.6);  
     z-index: 2;  
 }
-/* prevent the decorative overlay from intercepting clicks */
-.home::before, .overlay, .main::before { pointer-events: none; }
 
 
 
@@ -327,8 +325,6 @@ body.loaded .home {
     
     
 }
-/* By default the off-canvas menu should not capture pointer events; JS enables it when opened. */
-.menu { pointer-events: none; }
 
 @keyframes slideIn{
     0%{
@@ -886,18 +882,14 @@ body.loaded .home {
 
 
 footer {
-    background: linear-gradient(90deg,#07102a 0%, #0b2440 100%);
-    color: #ffffff; /* brighter for improved contrast */
-    text-align: center;
-    padding: 22px 20px;
-    font-size: 14px;
-    font-family: Arial, sans-serif;
-    border-top: 1px solid rgba(255,255,255,0.04);
+    background: rgb(27,67,224);
+    background: linear-gradient(90deg, rgba(27,67,224,0.7) 14%, rgba(146,191,232,0.7) 100%, rgba(123,175,78,0.7) 100%);
+    color: black; /* White text */
+    text-align: center; /* Center text */
+    padding: 10px 0; /* Add padding */
+    font-size: 18px; /* Font size */
+    font-family: Arial, sans-serif; /* Font style */
 }
-
-footer p { margin: 0; }
-footer a { color: #f0f8ff; text-decoration: none; }
-footer a:hover { text-decoration: underline; }
 
 #preloader {
     position: fixed;
@@ -1483,59 +1475,3 @@ footer a:hover { text-decoration: underline; }
 
 
 }
-
-/* Reviews extras: empty message color, avatars, and star UI */
-.reviews-empty{ text-align:center; padding:36px; color:#ffd966; font-weight:600 }
-.review-avatar{ width:44px; height:44px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; color:#fff; font-weight:700; margin-right:12px; box-shadow: 0 6px 16px rgba(2,6,20,0.12) }
-.review-meta{ display:flex; align-items:center; justify-content:space-between }
-.review-meta .left{ display:flex; align-items:center }
-.card-stars{ color:#ffb400; font-size:15px }
-.modal-stars{ display:flex; gap:6px; margin-top:8px }
-.modal-star{ cursor:pointer; font-size:22px; color:#e2e8f0 }
-.modal-star.active{ color:#ffb400; transform: scale(1.06) }
-
-/* -------------------- Reviews / Modal / Mobile button -------------------- */
-.reviews{ padding:56px 20px; /* match main nav palette: blue -> green gradient */
-    background: linear-gradient(90deg, rgba(27,67,224,0.95) 0%, rgba(123,175,78,0.95) 100%);
-    position: relative; /* bring into stacking context */
-    z-index: 14000; /* ensure reviews sit above overlays and menus */
-    pointer-events: auto; /* ensure buttons inside respond to clicks */
-}
-
-/* Ensure all interactive elements inside the reviews region receive pointer events */
-.reviews, .reviews * { pointer-events: auto !important; }
-.reviews-inner{ max-width:1100px; margin:0 auto; display:flex; flex-direction:column; gap:20px }
-.reviews-header{ display:flex; justify-content:space-between; align-items:center; gap:18px }
-.reviews-header h1{ color: #fff; margin:0; font-size:28px }
-.reviews-sub{ color:#cfe7ff; margin:0; opacity:0.95 }
-.reviews-actions{ display:flex; gap:10px; align-items:center }
-.write-review-btn{ background: linear-gradient(90deg, rgba(27,67,224,1), rgba(123,175,78,1)); color:#fff; border:none; padding:10px 14px; border-radius:10px; cursor:pointer; box-shadow:0 8px 24px rgba(6,24,80,0.22); font-weight:700 }
-.reviews-admin-btn{ background:transparent; color:#e6f0ff; border:1px solid rgba(255,255,255,0.12); padding:8px 10px; border-radius:8px; cursor:pointer }
-
-.reviews-container{ margin-top:12px; display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:18px }
-.review-card{ background:#fff; color:#07102a; border-radius:12px; padding:16px; box-shadow: 0 8px 32px rgba(2,6,20,0.35); position:relative }
-.review-meta{ display:flex; justify-content:space-between; align-items:center }
-.review-name{ font-weight:700 }
-.review-rating{ color:#ffb400; font-weight:700 }
-.review-text{ margin-top:10px; color:#102035; line-height:1.4 }
-.review-timestamp{ font-size:12px; color:#6b7280 }
-
-/* Delete button visible to owner/admin */
-.review-delete{ position:absolute; right:12px; top:12px; background:transparent; border:none; color:#7a1f1f; cursor:pointer; font-size:16px }
-
-/* Modal styles */
-.review-modal{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:22000; pointer-events: auto; }
-.review-modal[aria-hidden="false"]{ display:flex }
-.review-modal-backdrop{ position:absolute; inset:0; background:rgba(0,0,0,0.6); z-index:22000; }
-.review-modal-panel{ position:relative; width:100%; max-width:520px; background:#ffffff; border-radius:12px; padding:20px; box-shadow:0 20px 60px rgba(0,0,0,0.6); color:#07102a; z-index:22001; }
-.review-modal-panel h2{ margin-top:0 }
-.review-modal-panel label{ display:block; font-size:13px; margin-top:10px; color:#334155 }
-.review-modal-panel input, .review-modal-panel select, .review-modal-panel textarea{ width:100%; padding:5px; margin-top:6px; border-radius:8px; border:1px solid #e6eef8; font-size:13px }
-.modal-actions{ display:flex; gap:8px; justify-content:flex-end; margin-top:12px }
-.btn{ padding:8px 12px; border-radius:8px; border:none; cursor:pointer }
-.btn.primary{ background: linear-gradient(90deg,#2b6df6,#14b8a6); color:#fff }
-.modal-close{ position:absolute; right:10px; top:8px; background:transparent; border:none; color:#0b1220; font-size:22px; cursor:pointer }
-
-/* mobile floating button */
-.mobile-review-btn{ position:fixed; right:18px; bottom:18px; z-index:25000; pointer-events:auto; background: linear-gradient(90deg,#2b6df6,#14b8a6); color:#fff; border:none; padding:12px 14px; border-radius:999px; box-shadow:0 12px 30px rgba(10,30,80,0.32); font-weight:700; display:none }
-@media only screen and (max-width:880px){ .mobile-review-btn{ display:block } .write-review-btn{ display:none } }
