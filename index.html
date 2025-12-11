@@ -27,7 +27,9 @@
         <div class="spinner"></div>
     </div>
     
-    <section class="home" id="home-section">
+    <!-- Inline the primary hero background so the browser can render it immediately -->
+    <link rel="preload" href="B1.jpg" as="image">
+    <section class="home" id="home-section" style="background-image: url('B1.jpg');">
         <div class="overlay"></div>
         <nav class="menu" id="menu">
             <div class="nav-buttons2" >
@@ -40,7 +42,7 @@
         <div class="all-home">
             <div class="nav-banner">
                 <div class="logo">
-                    <img src="logo.png" id="banner-logo" width="220px" height="100px">
+                    <img src="logo.png" id="banner-logo" width="220px" height="100px" loading="lazy" decoding="async">
                 </div>
 
                 <div class="nav-buttons">
@@ -72,7 +74,7 @@
 
 
                 <div class="form">
-                    <img src="test.png" width="100%" height="160px">
+                    <img src="test.png" width="100%" height="160px" loading="lazy" decoding="async">
                     <form id="contactForm2" action="https://formspree.io/f/moveaqyl" method="POST">
                         
                         <h3>Get in Touch With us!</h3>
@@ -99,10 +101,10 @@
             
             <div class="about-services">
                 <div class="services-image">
-                    <img src="services-image.png" id="transportation-image">
+                    <img src="services-image.png" id="transportation-image" loading="lazy" decoding="async">
                     <div class="services-offered">
                         <div class="where-when">
-                            <img src="location.png" width="100px" height="100px" id="services-image1">
+                            <img src="location.png" width="100px" height="100px" id="services-image1" loading="lazy" decoding="async">
                             <div class="service-definition1">
                                 <p id="services-heading1">Tell us Where and When</p>
                                 <p id="service1">Choose your pickup and drop off location.</p>
@@ -110,7 +112,7 @@
                         </div>
 
                         <div class="location">
-                            <img src="location2.png" width="100px" height="100px" id="services-image2">
+                            <img src="location2.png" width="100px" height="100px" id="services-image2" loading="lazy" decoding="async">
                             <div class="service-definition1">
                                 <p id="services-heading1">We Take you there</p>
                                 <p id="service1">Our Driver picks you up and drops you at your desired location.</p>
@@ -118,7 +120,7 @@
                         </div>
 
                         <div class="return-trip">
-                            <img src="return-trip3.jpg" width="100px" height="100px" id="services-image3">
+                            <img src="return-trip3.jpg" width="100px" height="100px" id="services-image3" loading="lazy" decoding="async">
                             <div class="service-definition1">
                                 <p id="services-heading1">Return Trip - No Problem</p>
                                 <p id="service1">Need a ride back we wait, and take you to your desired destination.</p>
@@ -229,7 +231,7 @@
                 </div>
                 <div class="contact-form">
                     <div class="form-image">
-                        <img src="contact-form-background.jpg"  >
+                        <img src="contact-form-background.jpg" loading="lazy" decoding="async">
                     </div>
                     <form id="contactForm" action="https://formspree.io/f/moveaqyl" method="POST">
                         <h3>Get in Touch With us!</h3>

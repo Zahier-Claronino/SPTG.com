@@ -9,8 +9,8 @@ const images = [
 let currentIndex = 0;
 const homeSection = document.querySelector(".home");
 const overlay = document.querySelector(".overlay");
-// Track image preload state at module scope so the fallback can inspect it
-let _preloadLoadedCount = 0;
+// Previously we waited for all images to load which delayed rendering.
+// We'll only wait for the primary hero image (B1.jpg) and then lazily preload the rest.
 let _preloadFinished = false;
 
 function changeImage() {
@@ -30,7 +30,8 @@ function changeImage() {
 }
 
 // Change image every 6 seconds
-setInterval(changeImage, 5000);
+// Start rotating backgrounds, but only after initial paint so it doesn't delay first render.
+setTimeout(() => setInterval(changeImage, 5000), 1000);
 
 
 const menu = document.getElementById('menu');
@@ -176,42 +177,41 @@ contactButton2.addEventListener('click', function(){
 
 
 
+// Faster preloader: only wait for the primary hero image and a short timeout.
 window.addEventListener("load", function () {
     const preloader = document.getElementById("preloader");
-    // use module-scoped counters so other code (fallback) can see progress
-    _preloadLoadedCount = 0;
 
-    const preloadImages = images.map((src) => {
-        const img = new Image();
-        img.src = src;
+    // Ensure the primary hero image is ready (B1.jpg). We preloaded it via <link rel="preload"> in HTML.
+    const hero = new Image();
+    let heroLoaded = false;
+    hero.src = images[0];
+    hero.onload = hero.onerror = () => { heroLoaded = true; maybeHide(); };
 
-        // Handle cached images
-        if (img.complete) {
-            _preloadLoadedCount++;
-        } else {
-            img.onload = img.onerror = () => {
-                _preloadLoadedCount++;
-                if (_preloadLoadedCount === images.length) allImagesLoaded();
-            };
+    // Hide preloader when either hero loaded or 1.5s passed (whichever first)
+    let fallbackTimer = setTimeout(() => { maybeHide(); }, 1500);
+
+    function maybeHide(){
+        if (_preloadFinished) return;
+        if (heroLoaded || Date.now() - startTime > 1400) {
+            _preloadFinished = true;
+            if (preloader) preloader.classList.add('hidden');
+            document.body.classList.add('loaded');
+            // Begin background lazy preloading of the rest when browser is idle
+            scheduleBackgroundPreload();
+            clearTimeout(fallbackTimer);
         }
-
-        return img;
-    });
-
-    // If everything was already cached
-    if (_preloadLoadedCount === images.length) {
-        allImagesLoaded();
     }
 
-    function allImagesLoaded() {
-        // Hide preloader if you have one
-        _preloadFinished = true;
-        if (preloader) preloader.classList.add("hidden");
-
-        // Reveal home section after preloading
-        document.body.classList.add("loaded");
-    }
+    const startTime = Date.now();
 });
+
+function scheduleBackgroundPreload(){
+    const toPreload = images.slice(1); // skip primary already inlined
+    const doPreload = () => {
+        toPreload.forEach(src => { const img = new Image(); img.src = src; });
+    };
+    if ('requestIdleCallback' in window) requestIdleCallback(doPreload, {timeout: 3000}); else setTimeout(doPreload, 2000);
+}
 
 
 
@@ -260,22 +260,20 @@ document.querySelector("#contactForm").addEventListener("submit", function (even
     // });
 });
 
-// Safety fallback: if the preloader is still visible after 15s, hide it.
-// We inspect the preload counters so we avoid hiding too early when images
-// are still actively loading; this reduces the risk of the preloader
-// disappearing before critical assets finish.
+// Safety fallback: if the preloader is still visible after 8s, hide it.
 setTimeout(() => {
     try {
         const preloader = document.getElementById('preloader');
         if (preloader && !preloader.classList.contains('hidden')) {
-            console.warn(`Preloader fallback: forced hide after 15s — loaded ${_preloadLoadedCount}/${images.length}`);
+            console.warn('Preloader fallback: forced hide after 8s');
             preloader.classList.add('hidden');
             document.body.classList.add('loaded');
+            scheduleBackgroundPreload();
         }
     } catch (e) {
         console.error('Preloader fallback error:', e);
     }
-}, 15000);
+}, 8000);
 
 
 // Contact form 2 handler removed — forms submit via normal HTML POST now.
